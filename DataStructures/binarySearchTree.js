@@ -49,6 +49,24 @@ class BinarySearchTree {
     // traverse tree until node found
   }
 
+  /**
+   * Returns a reference to the node of val if found; otherwise null
+   * @param {TreeNode} root - current node to find value
+   * @param {number} val
+   */
+  findNode(val, root = this.root) {
+    if (!root) return null;
+
+    if (root.val === val) {
+      return root;
+    } else if (val < root.val) {
+      return this.findNode(val, root.left);
+    } else {
+      return this.findNode(val, root.right);
+    }
+  }
+
+  // Getters  - traversals
   get inorder() {
     if (!this.root) return [];
 
@@ -130,4 +148,5 @@ assert.deepEqual([10, 2, 1, 8, 9, 23, 11, 33], c.preorder);
 assert.deepEqual([1, 9, 8, 2, 11, 33, 23, 10], c.postorder);
 // console.log(c.preorder, c.postorder);
 
+assert.deepEqual({ val: 9, left: null, right: null }, c.findNode(9));
 console.log('All tests pass');
