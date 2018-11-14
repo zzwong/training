@@ -1,3 +1,11 @@
+# OS X Mojave Calculator Clone in React
+
+## Simulates OSX calculator functionality
+
+### TODO:
+
+- displayed number too big, should decrease font size automagically
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
