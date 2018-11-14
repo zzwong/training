@@ -110,10 +110,9 @@ class Calculator extends React.Component {
     if (val === '×') val = '*';
     if (val === '÷') val = '/';
 
-    let ops = [...this.state.operator];
     this.setState(
       {
-        operator: [...ops, val],
+        operator: [val],
         currentNumberIndex: this.state.currentNumberIndex + 1,
         shouldClearOnNumberEnter: false
       },
@@ -205,6 +204,7 @@ class Calculator extends React.Component {
   };
 
   componentDidUpdate() {
+    // debugging
     console.log(this.state);
   }
 
