@@ -9,10 +9,13 @@ A simple React Calculator inspired by the macOS Mojave calculator. Uses [mathjs]
 ### TODO:
 
 - displayed number too big, should decrease font size automagically
+- ~~toggle sign~~
 - ~~Update the percent/module button to not be orange~~
 - ~~Hitting '=' (eval) after evaluating should perform the last operation~~
   - ex. '2 + 2 = = =' should yield 8
 - on error: have some interaction design animation like calculator shake (for ex. entering multiple '.')
+
+Special thanks to @MyNameIsURL and his [calculator](https://github.com/MyNameIsURL/react-calculator-app) project that I used for reference (mainly flexbox CSS). You can view his excellent tutorial [here](https://youtu.be/KzYUuTiHdiY)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

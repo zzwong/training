@@ -46,6 +46,22 @@ class Calculator extends React.Component {
     });
   }
 
+  handleSignToggleClick = () => {
+    // updates sign on top most number
+    let numbers = [...this.state.numbers];
+    if (numbers.length > 0) {
+      let number = numbers.pop();
+      if (number.includes('-')) {
+        number = number.slice(1);
+      } else {
+        number = '-' + number;
+      }
+      this.setState({
+        numbers: [...numbers, number]
+      });
+    }
+  };
+
   handleClearEntry() {
     let numbers = [...this.state.numbers];
     numbers.pop();
@@ -108,6 +124,17 @@ class Calculator extends React.Component {
         }
       }
     );
+  };
+
+  handlePercentClick = () => {
+    let numbers = [...this.state.numbers];
+    if (numbers.length > 0) {
+      let number = numbers.pop();
+      number /= 100;
+      this.setState({
+        numbers: [...numbers, number]
+      });
+    }
   };
 
   /**
@@ -192,8 +219,10 @@ class Calculator extends React.Component {
             <Button dark onClick={this.handleClear}>
               {this.state.numbers.length > 0 ? 'C' : 'AC'}
             </Button>
-            <Button dark>+/-</Button>
-            <Button dark operator={'%'} onClick={this.handleCalculatorInput}>
+            <Button dark onClick={this.handleSignToggleClick}>
+              +/-
+            </Button>
+            <Button dark onClick={this.handlePercentClick}>
               %
             </Button>
             <Button operator={'/'} onClick={this.handleCalculatorInput}>
