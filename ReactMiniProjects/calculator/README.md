@@ -2,12 +2,17 @@
 
 ## Simulates OSX calculator functionality
 
+Live Demo: [https://react-calculadora.glitch.me/](https://react-calculadora.glitch.me/)
+
+A simple React Calculator inspired by the macOS Mojave calculator. Uses [mathjs](https://github.com/josdejong/mathjs) package for evaluating expressions
+
 ### TODO:
 
 - displayed number too big, should decrease font size automagically
-- ~Update the percent/module button to not be orange~
-- ~Hitting '=' (eval) after evaluating should perform the last operation~
-  -- ex. '2 + 2 = = =' should yield 8
+- ~~Update the percent/module button to not be orange~~
+- ~~Hitting '=' (eval) after evaluating should perform the last operation~~
+  - ex. '2 + 2 = = =' should yield 8
+- on error: have some interaction design animation like calculator shake (for ex. entering multiple '.')
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

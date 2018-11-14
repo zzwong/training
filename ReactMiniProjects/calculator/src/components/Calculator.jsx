@@ -11,9 +11,9 @@ const Button = props => {
   return (
     <div
       className={`calc-button ${props.operator ? 'operator' : ''} ${props.hasOwnProperty('dark') ? 'dark-button' : ''}`}
-      onClick={() => props.onClick(props.children)}
+      onClick={() => (!!props.onClick ? props.onClick(props.children) : null)}
     >
-      {props.operator ? props.operator : props.children}
+      {props.children}
     </div>
   );
 };
@@ -31,7 +31,7 @@ class Calculator extends React.Component {
     if (val === '×') val = '*';
     if (val === '÷') val = '/';
 
-    if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(val)) {
+    if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'].includes(val)) {
       this.handleNumericClick(val);
     } else {
       this.handleOperatorClick(val);
@@ -58,16 +58,25 @@ class Calculator extends React.Component {
     // simply push the first value
     const { numbers, currentNumberIndex, shouldClearOnNumberEnter } = this.state;
     if (numbers.length <= 0 || shouldClearOnNumberEnter) {
+      if (val === '.') {
+        val = '0.';
+      }
       this.setState({
         numbers: [val],
         shouldClearOnNumberEnter: false
       });
     } else {
-      // append to the top element
+      // append to the top element of number stack
       if (currentNumberIndex === numbers.length - 1) {
         console.log(currentNumberIndex, numbers);
         let _numbers = [...numbers];
         let currentVal = _numbers.pop();
+
+        // Handle multiple '.' inputs
+        if (val === '.' && currentVal.includes('.')) {
+          // could handle some error state here
+          return;
+        }
         currentVal += val;
 
         this.setState({
