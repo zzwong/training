@@ -19,7 +19,8 @@ class Calculator extends React.Component {
   state = {
     operator: [],
     numbers: [],
-    currentNumberIndex: 0
+    currentNumberIndex: 0,
+    shouldClearOnNumberEnter: false
   };
 
   handleCalculatorInput = val => {
@@ -50,10 +51,11 @@ class Calculator extends React.Component {
 
   handleNumericClick = val => {
     // simply push the first value
-    const { numbers, currentNumberIndex } = this.state;
-    if (numbers.length <= 0) {
+    const { numbers, currentNumberIndex, shouldClearOnNumberEnter } = this.state;
+    if (numbers.length <= 0 || shouldClearOnNumberEnter) {
       this.setState({
-        numbers: [val]
+        numbers: [val],
+        shouldClearOnNumberEnter: false
       });
     } else {
       // append to the top element
@@ -82,7 +84,8 @@ class Calculator extends React.Component {
     this.setState(
       {
         operator: [...ops, val],
-        currentNumberIndex: this.state.currentNumberIndex + 1
+        currentNumberIndex: this.state.currentNumberIndex + 1,
+        shouldClearOnNumberEnter: false
       },
       () => {
         if (['+', '-'].includes(val) && this.state.numbers.length >= 2) {
@@ -101,6 +104,8 @@ class Calculator extends React.Component {
    * @param {boolean} sumOrDiff - true if we should keep the operator
    */
   handleEval = sumOrDiff => {
+    if (this.state.numbers.length <= 1) return;
+
     const [operand1, operand2] = this.state.numbers;
     const operatorStack = [...this.state.operator];
     const op = operatorStack.shift();
@@ -110,6 +115,7 @@ class Calculator extends React.Component {
     this.setState({
       currentNumberIndex: 0,
       numbers: [result],
+      shouldClearOnNumberEnter: true,
       operator: sumOrDiff ? operatorStack : []
     });
   };
