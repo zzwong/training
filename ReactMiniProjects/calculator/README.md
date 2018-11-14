@@ -5,6 +5,7 @@
 ### TODO:
 
 - displayed number too big, should decrease font size automagically
+- Update the percent/module button to not be orange
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
