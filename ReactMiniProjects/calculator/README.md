@@ -5,7 +5,9 @@
 ### TODO:
 
 - displayed number too big, should decrease font size automagically
-- Update the percent/module button to not be orange
+- ~Update the percent/module button to not be orange~
+- ~Hitting '=' (eval) after evaluating should perform the last operation~
+  -- ex. '2 + 2 = = =' should yield 8
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

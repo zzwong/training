@@ -9,7 +9,10 @@ const Display = props => {
 
 const Button = props => {
   return (
-    <div className={`calc-button ${props.operator ? 'operator' : ''}`} onClick={() => props.onClick(props.children)}>
+    <div
+      className={`calc-button ${props.operator ? 'operator' : ''} ${props.hasOwnProperty('dark') ? 'dark-button' : ''}`}
+      onClick={() => props.onClick(props.children)}
+    >
       {props.operator ? props.operator : props.children}
     </div>
   );
@@ -20,7 +23,8 @@ class Calculator extends React.Component {
     operator: [],
     numbers: [],
     currentNumberIndex: 0,
-    shouldClearOnNumberEnter: false
+    shouldClearOnNumberEnter: false,
+    lastOperationBuffer: ''
   };
 
   handleCalculatorInput = val => {
@@ -37,7 +41,8 @@ class Calculator extends React.Component {
   handleAllClear() {
     this.setState({
       numbers: [],
-      operator: []
+      operator: [],
+      lastOperationBuffer: ''
     });
   }
 
@@ -104,7 +109,39 @@ class Calculator extends React.Component {
    * @param {boolean} sumOrDiff - true if we should keep the operator
    */
   handleEval = sumOrDiff => {
-    if (this.state.numbers.length <= 1) return;
+    if (this.state.numbers.length <= 1) {
+      // handle operationBuffer ie number + 3 was the last operation, should continue +3 on result
+      if (
+        this.state.numbers.length === 1 &&
+        !!this.state.lastOperationBuffer &&
+        this.state.lastOperationBuffer.length > 0
+      ) {
+        let evalExpression = `${this.state.lastOperationBuffer} ${this.state.numbers[0]}`;
+        const result = math.format(math.eval(evalExpression), { precision: 14 });
+        this.setState({
+          currentNumberIndex: 0,
+          numbers: [result],
+          shouldClearOnNumberEnter: true
+        });
+      }
+      // handle single operand to evaluate operator on itself
+      //   ex. '2 + =' --> 2 + 2; '2 * =' --> 2 * 2
+      else if (this.state.numbers.length === 1 && this.state.operator.length === 1) {
+        const operand = this.state.numbers[0];
+        const op = this.state.operator[0];
+        let evalExpression = `${operand} ${op} ${operand}`;
+        const result = math.format(math.eval(evalExpression), { precision: 14 });
+        this.setState({
+          operator: [],
+          currentNumberIndex: 0,
+          numbers: [result],
+          shouldClearOnNumberEnter: false,
+          lastOperationBuffer: `${operand} ${op}`
+        });
+      }
+
+      return;
+    }
 
     const [operand1, operand2] = this.state.numbers;
     const operatorStack = [...this.state.operator];
@@ -113,6 +150,7 @@ class Calculator extends React.Component {
 
     const result = math.format(math.eval(evalExpression), { precision: 14 });
     this.setState({
+      lastOperationBuffer: `${operand2} ${op}`,
       currentNumberIndex: 0,
       numbers: [result],
       shouldClearOnNumberEnter: true,
@@ -142,9 +180,11 @@ class Calculator extends React.Component {
         <Display data={d}> </Display>
         <div className="buttons">
           <div className="row">
-            <Button onClick={this.handleClear}>{this.state.numbers.length > 0 ? 'C' : 'AC'}</Button>
-            <Button>+/-</Button>
-            <Button operator={'%'} onClick={this.handleCalculatorInput}>
+            <Button dark onClick={this.handleClear}>
+              {this.state.numbers.length > 0 ? 'C' : 'AC'}
+            </Button>
+            <Button dark>+/-</Button>
+            <Button dark operator={'%'} onClick={this.handleCalculatorInput}>
               %
             </Button>
             <Button operator={'/'} onClick={this.handleCalculatorInput}>

@@ -30,6 +30,10 @@
   cursor: default;
 }
 
+.dark-button {
+  background-color: #555555 !important;
+}
+
 .operator {
   color: #eee;
   background-color: #fea241;
