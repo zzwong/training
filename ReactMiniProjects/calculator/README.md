@@ -4,7 +4,7 @@
 
 Live Demo: [https://react-calculadora.glitch.me/](https://react-calculadora.glitch.me/)
 
-A simple React Calculator inspired by the macOS Mojave calculator. Uses [mathjs](https://github.com/josdejong/mathjs) package for evaluating expressions
+A simple macOS Mojave calculator clone built with React. Uses [mathjs](https://github.com/josdejong/mathjs) package for evaluating expressions
 
 ### TODO:
 
@@ -16,6 +16,8 @@ A simple React Calculator inspired by the macOS Mojave calculator. Uses [mathjs]
 - on error: have some interaction design animation like calculator shake (for ex. entering multiple '.')
 
 Special thanks to @MyNameIsURL and his [calculator](https://github.com/MyNameIsURL/react-calculator-app) project that I used for reference (mainly flexbox CSS). You can view his excellent tutorial [here](https://youtu.be/KzYUuTiHdiY)
+
+---
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
