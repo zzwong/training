@@ -33,6 +33,14 @@ const groupAnagrams = strs => {
 const fasterGroupAnagrams = strs => {
   let anagrams = {};
 
+  const getHash = word => {
+    let charCount = new Array(26).fill(0);
+    for (let c of word) {
+      charCount[c.charCodeAt() - 'a'.charCodeAt()] += 1;
+    }
+    return charCount.join();
+  };
+
   for (let str of strs) {
     const hash = getHash(str);
     if (anagrams.hasOwnProperty(hash)) {
@@ -44,10 +52,25 @@ const fasterGroupAnagrams = strs => {
   return Object.values(anagrams);
 };
 
-function getHash(word) {
-  let charCount = new Array(26).fill(0);
-  for (let c of word) {
-    charCount[c.charCodeAt() - 'a'.charCodeAt()] += 1;
+String.prototype.isAnagram = function(otherString) {
+  console.log(this);
+  if (this.length !== otherString.length) return false;
+  let charCount = {};
+
+  for (let c of this) {
+    if (charCount.hasOwnProperty(c)) {
+      charCount[c] += 1;
+    } else {
+      charCount[c] = [1];
+    }
   }
-  return charCount.join();
-}
+
+  for (let c of otherString) {
+    if (!charCount.hasOwnProperty(c)) {
+      return false;
+    } else {
+      charCount[c] -= 1;
+    }
+  }
+  return Object.values(charCount).every(x => x === 0);
+};
