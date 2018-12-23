@@ -1,0 +1,46 @@
+<!-- Here is some HTML. It has 3 normal checkboxes and another checkbox that says "all" -->
+<!-- If you check "all", all other checkboxes should be checked as well. -->
+<!-- If "all" is unchecked, it should uncheck the rest of the boxes-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test</title>
+  <meta charset="utf-8">
+</head>
+<body>  
+  <form>
+    <input type="checkbox" id="all">All</input>
+    <input type="checkbox" class="choice">A</input>
+    <input type="checkbox" class="choice">B</input>
+    <input type="checkbox" class="choice">C</input>
+  </form>
+  <script>
+      const allButton = document.getElementById('all');
+      const choices = document.getElementsByClassName('choice');
+
+      // checking choice should also uncheck the allButton  
+      allButton.addEventListener('click', function (e) {
+        for(let choice of choices) {
+          choice.checked = e.target.checked;
+        }
+      });
+
+      const choiceHandler = function(e) {
+        // allChecked defaults to true and we just check if options are false
+        let allChecked = true;
+        for(let choice of choices) {
+          if (!choice.checked) {
+            allChecked = false;
+            break;
+          }
+        }
+        all.checked = allChecked;
+      }
+
+      for(let choice of choices) {
+        choice.addEventListener('click', choiceHandler);
+      }    
+    </script>
+</body>
+</html>

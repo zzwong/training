@@ -1,0 +1,54 @@
+<!-- User always types in some text in skewer case format. Write code to update input into camelCaseFormat. -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <h1 id="user-text-header"></h1>
+    <form><input type="text" id="user-text" /> <button id="change-btn">Change It</button></form>
+    <script>
+      const textInput = document.getElementById('user-text');
+      const changeBtn = document.getElementById('change-btn');
+      const headerText = document.getElementById('user-text-header');
+
+      // string: -> string
+      // my-vegan-meat-loaf -> myVeganMeatLoaf
+      // MY-GREAT-BIG-TOES -> myGreatBigToes
+      // -skewer-boy -> skewerBoy
+      const snakeToCamelCase = str => {
+        let result = '';
+        let shouldCapitalize = false;
+        for (let i = 0; i < str.length; i++) {
+          if (str[i] === '-') {
+            shouldCapitalize = true;
+          } else {
+            if (shouldCapitalize) {
+              // ensure first letter always lowercase
+              // handles case where str begins with a skewer
+              if (result.length === 0) {
+                result += str[i].toLowerCase();
+              } else {
+                result += str[i].toUpperCase();
+              }
+            } else {
+              result += str[i].toLowerCase();
+            }
+            shouldCapitalize = false;
+          }
+        }
+        return result;
+      };
+
+      changeBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const txt = textInput.value.trim();
+        textInput.value = snakeToCamelCase(txt);
+        headerText.innerHTML = textInput.value;
+      });
+    </script>
+  </body>
+</html>
