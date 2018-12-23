@@ -21,6 +21,9 @@ The DB of choice for this project will be PostgreSQL. I wanted to learn some SQL
 #### Nice to haves
 
 Storybook - UI Component Library
+
 Sort by trending - have some sort of trending algorithm
+
 Users, authentication, restricting number of upvotes to a single time
+
 Editing Tweets by author
